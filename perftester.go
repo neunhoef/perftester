@@ -47,14 +47,22 @@ func main() {
 	errorCount := 0
 	count := 0
 
-  client := &http.Client{};
+  transport := &http.Transport{
+		MaxIdleConns:       10,
+		IdleConnTimeout:    30 * time.Second,
+		DisableCompression: true,
+		DisableKeepAlives:  false,
+	}
+  client := &http.Client{Transport: transport};
 
   for {
     time.Sleep(100000000)
 
 		// Measure a HTTP roundtrip:
 		start := time.Now()
-		r, e := client.Get("http://localhost:" + portStr)
+		req, _ := http.NewRequest("GET", "http://localhost:" + portStr, nil)
+		req.Header = map[string][]string{"Keep-Alive": {"300"}}
+		r, e := client.Do(req)
 		end := time.Now()
 		if e != nil {
 		  errorCount += 1
