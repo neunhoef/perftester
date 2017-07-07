@@ -11,7 +11,7 @@ import (
   "time"
 )
 
-var blockSize = 1000
+var blockSize = 600   // one report every minute
 var port = 8000
 var portStr = "8000"
 
