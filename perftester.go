@@ -73,7 +73,7 @@ func main() {
 
     // Measure a file write:
 		start = time.Now()
-		name := "/tmp/testfile" + strconv.FormatInt(int64(count), 10)
+		name := "./testfile" + strconv.FormatInt(int64(count), 10)
 		f, e := os.Create(name)
 		if e != nil {
 		  errorCount += 1
